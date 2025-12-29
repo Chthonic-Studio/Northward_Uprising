@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b765446eq6dss"]
+
+[ext_resource type="PackedScene" uid="uid://xfni2131tmld" path="res://Scenes/player.tscn" id="1_lc1oi"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(320, 180)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="Player" parent="TileMapLayer" instance=ExtResource("1_lc1oi")]
