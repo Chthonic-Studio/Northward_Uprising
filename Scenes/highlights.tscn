@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cajmxkrln1py0"]
+[gd_scene load_steps=2 format=4 uid="uid://cajmxkrln1py0"]
 
 [ext_resource type="TileSet" uid="uid://bc34f446p3bhg" path="res://Assets/Tilesets/RA_Grounds.tres" id="1_3m1l2"]
 
 [node name="Highlights" type="TileMapLayer"]
-modulate = Color(0, 0.63529414, 1, 0.43137255)
+modulate = Color(0, 0.63529414, 1, 0.29411766)
 z_index = 1
-tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 13, 0, 0, 0)
+tile_map_data = PackedByteArray("AAAAAAAAAAASAA0AAAD/////AAASAA0AAAD//wAAAAASAA0AAAD//wEAAAASAA0AAAAAAAEAAAASAA0AAAABAAEAAAASAA0AAAABAAAAAAASAA0AAAABAP//AAASAA0AAAAAAP//AAASAA0AAAA=")
 tile_set = ExtResource("1_3m1l2")

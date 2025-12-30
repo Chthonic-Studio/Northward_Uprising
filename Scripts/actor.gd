@@ -8,6 +8,8 @@ class_name Actor extends CharacterBody2D
 const FRIENDLY_COLOR : Color = Color("23ff1e")
 const ENEMY_COLOR : Color = Color("d94141")
 
+@export var stats: UnitResource = null # Holds unit stats such as movement_range
+
 var active : bool = false :
 	set(value):
 		active = value
@@ -20,6 +22,7 @@ var active : bool = false :
 			queue_redraw()
 
 var cells_travelled : Array[Vector2] = []
+var reachable_cells : Array[Vector2i] = [] # Cells this unit may enter this turn
 
 @export var is_friendly : bool = false : 
 	set(value):
@@ -42,6 +45,10 @@ func _ready() -> void:
 	if sprite == null:
 		sprite = $Sprite
 
+func set_reachable_cells(cells: Array[Vector2i]) -> void:
+	# Called by world to constrain movement and draw range
+	reachable_cells = cells.duplicate()
+
 func _process(_delta: float) -> void:
 	if not active:
 		return
@@ -61,6 +68,10 @@ func _process(_delta: float) -> void:
 		var move_vector: Vector2 = movement * Globals.CELL_SIZE
 		var next_pos: Vector2 = position + move_vector
 		var next_grid_pos: Vector2 = next_pos / Globals.CELL_SIZE
+		
+		# Disallow stepping outside the computed reachable range (if provided)
+		if reachable_cells.size() > 0 and not Vector2i(next_grid_pos) in reachable_cells:
+			return
 		
 		# If the input points to the 2nd to last cell we visited, we are "unwinding" the path.
 		if cells_travelled.size() > 1 and next_grid_pos.is_equal_approx(cells_travelled[cells_travelled.size() - 2]):
