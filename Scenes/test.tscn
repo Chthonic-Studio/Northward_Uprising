@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://b765446eq6dss"]
+[gd_scene load_steps=9 format=4 uid="uid://b765446eq6dss"]
 
 [ext_resource type="PackedScene" uid="uid://xfni2131tmld" path="res://Scenes/actor.tscn" id="1_lc1oi"]
 [ext_resource type="TileSet" uid="uid://bc34f446p3bhg" path="res://Assets/Tilesets/RA_Grounds.tres" id="1_qc4db"]
 [ext_resource type="Script" uid="uid://bashta73wbddv" path="res://Scripts/world.gd" id="1_ys1qc"]
 [ext_resource type="TileSet" uid="uid://s2im8aupyxxu" path="res://Assets/Tilesets/RA_Ancient_Ruins.tres" id="2_ys1qc"]
+[ext_resource type="PackedScene" uid="uid://cajmxkrln1py0" path="res://Scenes/highlights.tscn" id="4_0c07c"]
 [ext_resource type="Resource" uid="uid://dqlkrm6f0n3d3" path="res://Resources/PlayerUnits/test_player_unit.tres" id="5_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://bair756jcfotv" path="res://UI/GridCursor/grid_cursor.tscn" id="5_35xla"]
 [ext_resource type="Resource" uid="uid://di0csbjrqcr3" path="res://Resources/EnemyUnits/test_enemy_unit.tres" id="6_0c07c"]
@@ -33,11 +34,7 @@ tile_set = ExtResource("2_ys1qc")
 
 [node name="Decorations" type="TileMapLayer" parent="Tilemaps"]
 
-[node name="Highlights" type="TileMapLayer" parent="Tilemaps"]
-modulate = Color(0, 0.63529414, 1, 0.43137255)
-z_index = 1
-tile_map_data = PackedByteArray("AAAAAAAAAAASAA0AAAA=")
-tile_set = ExtResource("1_qc4db")
+[node name="Highlights" parent="Tilemaps" instance=ExtResource("4_0c07c")]
 
 [node name="Actors" type="Node2D" parent="."]
 
@@ -76,5 +73,3 @@ stats = ExtResource("6_0c07c")
 
 [node name="GridCursor" parent="." instance=ExtResource("5_35xla")]
 monitorable = false
-
-[connection signal="moved" from="GridCursor" to="." method="_on_grid_cursor_moved"]
