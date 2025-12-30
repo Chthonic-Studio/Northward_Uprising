@@ -8,6 +8,7 @@ const FRIENDLY_COLOR : Color = Color("23ff1e")
 const ENEMY_COLOR : Color = Color("d94141")
 
 var active : bool = false
+var cells_travelled : Array[Vector2] = []
 
 @export var is_friendly : bool = false : 
 	set(value):
@@ -33,7 +34,9 @@ func _process(_delta: float) -> void:
 		
 		if not test_move(transform, move_vector):
 			position_target = position + move_vector
+			cells_travelled.append(position_target / Globals.CELL_SIZE)
 			input_delay.start()
 
-
+func _draw() -> void:
+	pass
 		
