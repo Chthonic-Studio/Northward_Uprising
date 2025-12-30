@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_qm40g")
+can_level_up = true
+character_name = "Test Enemy Unit"
 metadata/_custom_type_script = "uid://3mwkm7xixemr"

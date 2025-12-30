@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_pscmk")
+character_name = "Test Player Unit"
+movement_range = 3
 metadata/_custom_type_script = "uid://chsnfrkwwqoke"
