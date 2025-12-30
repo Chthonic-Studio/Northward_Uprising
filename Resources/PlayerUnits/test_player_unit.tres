@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="UnitResource" load_steps=2 format=3 uid="uid://dqlkrm6f0n3d3"]
+
+[ext_resource type="Script" uid="uid://chsnfrkwwqoke" path="res://Resources/unit_resource.gd" id="1_pscmk"]
+
+[resource]
+script = ExtResource("1_pscmk")
+metadata/_custom_type_script = "uid://chsnfrkwwqoke"
