@@ -10,18 +10,21 @@ const ENEMY_COLOR : Color = Color("d94141")
 
 @export var stats: UnitResource = null # Holds unit stats such as movement_range
 
+var origin_cell: Vector2i = Vector2i.ZERO # Where the unit started before planning a move
+
 var active : bool = false :
 	set(value):
 		active = value
 		if active:
+			origin_cell = Vector2i(position / Globals.CELL_SIZE)
 			cells_travelled.clear()
-			cells_travelled.append(position / Globals.CELL_SIZE)
+			cells_travelled.append(origin_cell)
 			queue_redraw()
 		else:
 			cells_travelled.clear()
 			queue_redraw()
 
-var cells_travelled : Array[Vector2] = []
+var cells_travelled : Array[Vector2i] = [] # Path cells (grid coords)
 var reachable_cells : Array[Vector2i] = [] # Cells this unit may enter this turn
 
 @export var is_friendly : bool = false : 
@@ -45,18 +48,31 @@ func _ready() -> void:
 	if sprite == null:
 		sprite = $Sprite
 
+func set_origin_cell(cell: Vector2i) -> void:
+	# Store starting cell for future cancel/backtracking
+	origin_cell = cell
+
 func set_reachable_cells(cells: Array[Vector2i]) -> void:
 	# Called by world to constrain movement and draw range
 	reachable_cells = cells.duplicate()
+
+func cancel_move_to_origin() -> void:
+	# Teleport back to start, reset path, keep actor ready to deactivate if needed
+	position = Vector2(origin_cell) * Globals.CELL_SIZE
+	position_target = position
+	cells_travelled.clear()
+	cells_travelled.append(origin_cell)
+	queue_redraw()
+
+func finalize_move() -> void:
+	# Commit current position as new origin for future turns
+	origin_cell = Vector2i(position / Globals.CELL_SIZE)
 
 func _process(_delta: float) -> void:
 	if not active:
 		return
 	
 	position = position.move_toward(position_target, 8)
-	
-	# Request redraw every frame to keep the path visually stationary in the world
-	# as the actor's local origin moves away from it.
 	queue_redraw()
 	
 	if not input_delay.is_stopped() or not position.is_equal_approx(position_target):
@@ -67,14 +83,14 @@ func _process(_delta: float) -> void:
 	if movement != Vector2.ZERO:
 		var move_vector: Vector2 = movement * Globals.CELL_SIZE
 		var next_pos: Vector2 = position + move_vector
-		var next_grid_pos: Vector2 = next_pos / Globals.CELL_SIZE
+		var next_grid_pos: Vector2i = Vector2i(next_pos / Globals.CELL_SIZE)
 		
 		# Disallow stepping outside the computed reachable range (if provided)
-		if reachable_cells.size() > 0 and not Vector2i(next_grid_pos) in reachable_cells:
+		if reachable_cells.size() > 0 and not next_grid_pos in reachable_cells:
 			return
 		
 		# If the input points to the 2nd to last cell we visited, we are "unwinding" the path.
-		if cells_travelled.size() > 1 and next_grid_pos.is_equal_approx(cells_travelled[cells_travelled.size() - 2]):
+		if cells_travelled.size() > 1 and next_grid_pos == cells_travelled[cells_travelled.size() - 2]:
 			cells_travelled.pop_back() # Remove the last step
 			position_target = next_pos
 			input_delay.start()
@@ -92,16 +108,12 @@ func _draw() -> void:
 		
 	var half_cell: Vector2 = Globals.CELL_SIZE / 2
 	
-	# Iterate through the tracked cells to draw lines connecting them
 	for i in range(cells_travelled.size() - 1):
-		# Convert Grid Coordinates (Global) to Local Drawing Coordinates.
-		# Formula: (Grid * 16) + CenterOffset - CurrentPixelPosition
-		var start_draw_pos = (cells_travelled[i] * Globals.CELL_SIZE) + half_cell - position
-		var end_draw_pos = (cells_travelled[i + 1] * Globals.CELL_SIZE) + half_cell - position
+		var start_draw_pos = (Vector2(cells_travelled[i]) * Globals.CELL_SIZE) + half_cell - position
+		var end_draw_pos = (Vector2(cells_travelled[i + 1]) * Globals.CELL_SIZE) + half_cell - position
 		
 		draw_line(start_draw_pos, end_draw_pos, Color.WHITE, 2.0)
 		draw_circle(start_draw_pos, 2.0, Color.WHITE)
 	
-	# Draw a final dot at the current target
-	var last_draw_pos = (cells_travelled.back() * Globals.CELL_SIZE) + half_cell - position
+	var last_draw_pos = (Vector2(cells_travelled.back()) * Globals.CELL_SIZE) + half_cell - position
 	draw_circle(last_draw_pos, 2.0, Color.WHITE)

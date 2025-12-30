@@ -4,8 +4,9 @@ extends Node2D
 @onready var tilemaps : Node2D = $Tilemaps
 @onready var walls : TileMapLayer = $Tilemaps/Walls
 @onready var highlights : TileMapLayer = $Tilemaps/Highlights
+@onready var grid_cursor : Node2D = $GridCursor # Used to pick units under cursor
 
-@export var highlight_source_id: int = 0            # TileSet source id to paint from
+@export var highlight_source_id: int = 0             # TileSet source id to paint from
 @export var highlight_atlas_pos: Vector2i = Vector2i(2, 5) # Atlas coords to use for tint
 
 var friendly_units : Array[Actor] = []
@@ -16,6 +17,38 @@ func _ready() -> void:
 	_collect_units()
 	if friendly_units.size() > 0:
 		_set_active_unit(friendly_units[0])
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Trust InputMap: works for keyboard + mouse bindings on the same action.
+	var action_pressed: bool = event.is_action_pressed("action")
+	var back_pressed: bool = event.is_action_pressed("back")
+	
+	if active_unit != null:
+		if action_pressed:
+			_confirm_active_unit_move()
+			get_viewport().set_input_as_handled()
+		elif back_pressed:
+			_cancel_active_unit_move()
+			get_viewport().set_input_as_handled()
+	else:
+		# No active unit: allow selecting a friendly under the cursor with "action"
+		if action_pressed:
+			var pick := _pick_friendly_at_cursor()
+			if pick != null:
+				_set_active_unit(pick)
+				get_viewport().set_input_as_handled()
+
+func _pick_friendly_at_cursor() -> Actor:
+	if grid_cursor == null:
+		return null
+	var cell: Vector2i = Vector2i(grid_cursor.global_position / Globals.CELL_SIZE)
+	for unit in friendly_units:
+		if not is_instance_valid(unit):
+			continue
+		var ucell: Vector2i = Vector2i(unit.global_position / Globals.CELL_SIZE)
+		if ucell == cell:
+			return unit
+	return null
 
 func _collect_units() -> void:
 	friendly_units.clear()
@@ -34,6 +67,7 @@ func _set_active_unit(unit: Actor) -> void:
 	_clear_highlights()
 	
 	active_unit = unit
+	active_unit.set_origin_cell(Vector2i(active_unit.global_position / Globals.CELL_SIZE))
 	active_unit.active = true
 	
 	var move_range: int = active_unit.stats.movement_range if active_unit.stats else 5
@@ -43,6 +77,30 @@ func _set_active_unit(unit: Actor) -> void:
 	
 	active_unit.set_reachable_cells(reachable)
 	_paint_highlights(reachable)
+
+func _confirm_active_unit_move() -> void:
+	if active_unit == null:
+		return
+	active_unit.finalize_move()
+	active_unit.active = false
+	active_unit.set_reachable_cells([])
+	_clear_highlights()
+	active_unit = null
+
+func _cancel_active_unit_move() -> void:
+	if active_unit == null:
+		return
+	
+	var at_origin: bool = active_unit.cells_travelled.size() <= 1
+	if at_origin:
+		active_unit.cancel_move_to_origin()
+		active_unit.active = false
+		active_unit.set_reachable_cells([])
+		_clear_highlights()
+		active_unit = null
+	else:
+		active_unit.cancel_move_to_origin()
+		# Keep active; range + highlights remain valid.
 
 func _get_map_bounds() -> Rect2i:
 	var merged: Rect2i = Rect2i()
