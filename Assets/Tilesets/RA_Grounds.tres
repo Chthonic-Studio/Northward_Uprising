@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bc34f446p3bhg"]
 
-[ext_resource type="Texture2D" uid="uid://7jirw2vppq83" path="res://ElvGames/Rogue Adventure/Tilesets/Sprites/RA_Grounds.png" id="1_220or"]
+[ext_resource type="Texture2D" uid="uid://7jirw2vppq83" path="res://Assets/Tilesets/Sprites/RA_Grounds.png" id="1_220or"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aygpm"]
 texture = ExtResource("1_220or")

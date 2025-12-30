@@ -1,15 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://xfni2131tmld"]
 
-[ext_resource type="Script" uid="uid://cbqja64st1heb" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://bw1oaiqi66rmn" path="res://Scripts/actor.gd" id="1_lfvdv"]
 [ext_resource type="Texture2D" uid="uid://btfutcq0eph0d" path="res://icon.svg" id="1_v0iea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvnsp"]
 size = Vector2(12, 12)
 
-[node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_cvnsp")
+[node name="ActorEnemy" type="CharacterBody2D"]
+script = ExtResource("1_lfvdv")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.8509804, 0.25490198, 0.25490198, 1)
 position = Vector2(8, 8)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("1_v0iea")
@@ -20,3 +21,4 @@ shape = SubResource("RectangleShape2D_cvnsp")
 
 [node name="InputDelay" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true

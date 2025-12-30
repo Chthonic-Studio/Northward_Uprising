@@ -35,6 +35,7 @@ static func clamp_to_four_dir(vec2: Vector2) -> Vector2:
 		
 static func get_four_direction_vector(diagonal_allowed: bool) -> Vector2:
 	var velocity: Vector2 = Vector2.ZERO
+
 	if Input.is_action_pressed("left"):
 		velocity.x -= 1
 	elif Input.is_action_pressed("right"):
