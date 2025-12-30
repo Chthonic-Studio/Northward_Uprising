@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://b765446eq6dss"]
+[gd_scene load_steps=6 format=4 uid="uid://b765446eq6dss"]
 
 [ext_resource type="PackedScene" uid="uid://xfni2131tmld" path="res://Scenes/actor.tscn" id="1_lc1oi"]
 [ext_resource type="TileSet" uid="uid://bc34f446p3bhg" path="res://Assets/Tilesets/RA_Grounds.tres" id="1_qc4db"]
 [ext_resource type="Script" uid="uid://bashta73wbddv" path="res://Scripts/world.gd" id="1_ys1qc"]
 [ext_resource type="TileSet" uid="uid://s2im8aupyxxu" path="res://Assets/Tilesets/RA_Ancient_Ruins.tres" id="2_ys1qc"]
+[ext_resource type="PackedScene" uid="uid://bair756jcfotv" path="res://UI/GridCursor/grid_cursor.tscn" id="5_35xla"]
 
 [node name="Test" type="Node2D"]
 script = ExtResource("1_ys1qc")
@@ -34,21 +35,32 @@ tile_set = ExtResource("2_ys1qc")
 
 [node name="ActorPlayer2" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(32, 64)
+collision_layer = 3
 is_friendly = true
 
 [node name="ActorPlayer3" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(80, 96)
+collision_layer = 3
 is_friendly = true
 
 [node name="ActorPlayer" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(32, 144)
+collision_layer = 3
 is_friendly = true
 
-[node name="ActorEnemy4" parent="Actors" instance=ExtResource("1_lc1oi")]
+[node name="ActorEnemy" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(224, 48)
+collision_layer = 5
 
-[node name="ActorEnemy5" parent="Actors" instance=ExtResource("1_lc1oi")]
+[node name="ActorEnemy2" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(240, 112)
+collision_layer = 5
 
-[node name="ActorEnemy6" parent="Actors" instance=ExtResource("1_lc1oi")]
+[node name="ActorEnemy3" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(288, 160)
+collision_layer = 5
+
+[node name="GridCursor" parent="." instance=ExtResource("5_35xla")]
+monitorable = false
+
+[connection signal="moved" from="GridCursor" to="." method="_on_grid_cursor_moved"]
