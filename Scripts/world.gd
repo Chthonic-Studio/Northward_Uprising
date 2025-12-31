@@ -46,7 +46,7 @@ func _handle_action_with_active_unit() -> void:
 	if active_unit == null or grid_cursor == null:
 		return
 	
-	var cursor_cell: Vector2i = Vector2i(grid_cursor.global_position / Globals.CELL_SIZE)
+	var cursor_cell: Vector2i = _world_to_cell(grid_cursor.global_position)
 	var current_target: Vector2i = active_unit.cells_travelled.back()
 	
 	# If auto-walking and player clicks again:
