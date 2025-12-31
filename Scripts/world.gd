@@ -21,6 +21,7 @@ var id_counter: int = 0
 func _ready() -> void:
 	_collect_units()
 	_build_astar_grid()
+	print("AStar nodes=", astar_map.get_point_count(), " map_bounds=", _get_map_bounds())
 	if friendly_units.size() > 0:
 		_set_active_unit(friendly_units[0])
 
@@ -46,11 +47,29 @@ func _handle_action_with_active_unit() -> void:
 	if active_unit == null: # Removed "or grid_cursor == null" check as we use mouse pos now
 		return
 	
-	# CHANGED: Calculate cursor_cell directly from mouse position to ensure
-	# negative coordinates are handled correctly by _world_to_cell's floor logic.
-	# This decouples input logic from the GridCursor visual object.
+	if !active_unit.position.is_equal_approx(active_unit.position_target):
+		return
+		
 	var cursor_cell: Vector2i = _world_to_cell(get_global_mouse_position())
 	var current_target: Vector2i = active_unit.cells_travelled.back()
+	
+		# TEMP DEBUG: log click, reachable, and path result
+	var is_reachable: bool = cursor_cell in active_unit.reachable_cells
+	var path_dbg: Array[Vector2i] = []
+	if is_reachable:
+		path_dbg = _compute_astar_path(
+			active_unit.origin_cell,
+			cursor_cell,
+			active_unit.reachable_cells,
+			active_unit.stats.movement_range if active_unit.stats else 5,
+			_build_occupancy(),
+			active_unit.is_friendly
+		)
+	print("CLICK cell=", cursor_cell,
+		" reachable=", is_reachable,
+		" path_len=", path_dbg.size(),
+		" origin=", active_unit.origin_cell,
+		" current_target=", current_target)
 	
 	# If auto-walking and player clicks again:
 	# - Same destination: ignore until arrival (prevents double-click cancel)
@@ -65,6 +84,8 @@ func _handle_action_with_active_unit() -> void:
 	if cursor_cell == current_target:
 		_confirm_active_unit_move()
 		return
+	
+	
 	
 	# If cursor is reachable, plan an A* path and auto-walk (keep active)
 	if cursor_cell in active_unit.reachable_cells:
@@ -124,8 +145,13 @@ func _set_active_unit(unit: Actor) -> void:
 func _confirm_active_unit_move() -> void:
 	if active_unit == null:
 		return
+		
+	if !active_unit.position.is_equal_approx(active_unit.position_target):
+		return
+		
 	if active_unit.is_connected("moved_to_cell", Callable(self, "_on_active_unit_moved_cell")):
 		active_unit.disconnect("moved_to_cell", Callable(self, "_on_active_unit_moved_cell"))
+		
 	active_unit.finalize_move()
 	active_unit.active = false
 	active_unit.set_reachable_cells([])
@@ -212,8 +238,8 @@ func _build_astar_grid() -> void:
 			if not cell_to_id.has(nxt):
 				continue
 			var nid: int = cell_to_id[nxt]
-			if not astar_map.are_points_connected(id, nid):
-				astar_map.connect_points(id, nid, false)
+			# BIDIRECTIONAL ON PURPOSE: without this, edges become one-way and paths fail to up/left tiles
+			astar_map.connect_points(id, nid, true)
 
 func _compute_reachable_cells(unit: Actor, move_range: int, bounds: Rect2i, occupied: Dictionary) -> Array[Vector2i]:
 	var reachable: Array[Vector2i] = []
