@@ -49,6 +49,15 @@ func _handle_action_with_active_unit() -> void:
 	var cursor_cell: Vector2i = Vector2i(grid_cursor.global_position / Globals.CELL_SIZE)
 	var current_target: Vector2i = active_unit.cells_travelled.back()
 	
+	# If auto-walking and player clicks again:
+	# - Same destination: ignore until arrival (prevents double-click cancel)
+	# - Different destination: snap back to origin, then re-plan from origin
+	if active_unit.is_autopiloting():
+		var planned_dest: Vector2i = active_unit.get_planned_destination()
+		if cursor_cell == planned_dest:
+			return # Let the current autopilot finish
+		active_unit.cancel_move_to_origin() # Reset path so new request starts clean
+	
 	# If cursor is on the planned destination, confirm
 	if cursor_cell == current_target:
 		_confirm_active_unit_move()
@@ -56,7 +65,7 @@ func _handle_action_with_active_unit() -> void:
 	
 	# If cursor is reachable, plan an A* path and auto-walk (keep active)
 	if cursor_cell in active_unit.reachable_cells:
-		var start_cell: Vector2i = Vector2i(active_unit.global_position / Globals.CELL_SIZE)
+		var start_cell: Vector2i = active_unit.origin_cell # Always plan from origin, Fire Emblem style
 		var move_range: int = active_unit.stats.movement_range if active_unit.stats else 5
 		var occupied := _build_occupancy()
 		var path: Array[Vector2i] = _compute_astar_path(start_cell, cursor_cell, active_unit.reachable_cells, move_range, occupied, active_unit.is_friendly)
@@ -68,11 +77,11 @@ func _handle_action_with_active_unit() -> void:
 func _pick_friendly_at_cursor() -> Actor:
 	if grid_cursor == null:
 		return null
-	var cell: Vector2i = Vector2i(grid_cursor.global_position / Globals.CELL_SIZE)
+	var cell: Vector2i = _world_to_cell(grid_cursor.global_position)
 	for unit in friendly_units:
 		if not is_instance_valid(unit):
 			continue
-		if Vector2i(unit.global_position / Globals.CELL_SIZE) == cell:
+		if _world_to_cell(unit.global_position) == cell:
 			return unit
 	return null
 
@@ -96,7 +105,7 @@ func _set_active_unit(unit: Actor) -> void:
 	_clear_highlights()
 	
 	active_unit = unit
-	active_unit.set_origin_cell(Vector2i(active_unit.global_position / Globals.CELL_SIZE))
+	active_unit.set_origin_cell(_world_to_cell(active_unit.global_position))
 	active_unit.active = true
 	active_unit.moved_to_cell.connect(_on_active_unit_moved_cell)
 	
@@ -107,7 +116,7 @@ func _set_active_unit(unit: Actor) -> void:
 	
 	active_unit.set_reachable_cells(reachable)
 	_paint_highlights(reachable)
-	_on_active_unit_moved_cell(Vector2i(active_unit.global_position / Globals.CELL_SIZE))
+	_on_active_unit_moved_cell(_world_to_cell(active_unit.global_position))
 
 func _confirm_active_unit_move() -> void:
 	if active_unit == null:
@@ -168,7 +177,7 @@ func _build_occupancy() -> Dictionary:
 	var occupied: Dictionary = {}
 	for child in actors.get_children():
 		if child is Actor:
-			var cell := Vector2i(child.global_position / Globals.CELL_SIZE)
+			var cell := _world_to_cell(child.global_position) # Floor convert for consistent blocking
 			occupied[cell] = child
 	return occupied
 
@@ -206,7 +215,7 @@ func _build_astar_grid() -> void:
 func _compute_reachable_cells(unit: Actor, move_range: int, bounds: Rect2i, occupied: Dictionary) -> Array[Vector2i]:
 	var reachable: Array[Vector2i] = []
 	var best_cost: Dictionary = {}
-	var start: Vector2i = Vector2i(unit.global_position / Globals.CELL_SIZE)
+	var start: Vector2i = _world_to_cell(unit.global_position)
 	var queue: Array = []
 	queue.append({ "cell": start, "cost": 0 })
 	best_cost[start] = 0
@@ -282,3 +291,7 @@ func _paint_highlights(cells: Array[Vector2i]) -> void:
 		return
 	for cell in cells:
 		highlights.set_cell(cell, highlight_source_id, highlight_atlas_pos)
+
+func _world_to_cell(pos: Vector2) -> Vector2i:
+	# Floor-based world->grid mapping; fixes clicks on tiles left/up of origin
+	return Vector2i(floor(pos.x / Globals.CELL_SIZE.x), floor(pos.y / Globals.CELL_SIZE.y))

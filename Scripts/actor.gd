@@ -21,7 +21,7 @@ var active: bool = false:
 	set(value):
 		active = value
 		if active:
-			origin_cell = Vector2i(position / Globals.CELL_SIZE)
+			origin_cell = _world_to_cell(position) # Floor convert so negatives map correctly
 			cells_travelled.clear()
 			cells_travelled.append(origin_cell)
 			autopilot_path.clear()
@@ -79,11 +79,20 @@ func cancel_move_to_origin() -> void:
 	cells_travelled.clear()
 	cells_travelled.append(origin_cell)
 	autopilot_path.clear()
+	input_delay.stop() # Ensure no leftover delay blocks new input after cancel
 	_emit_current_cell()
 	queue_redraw()
 
+# Helper: returns true when auto-walking a planned path
+func is_autopiloting() -> bool:
+	return autopilot_path.size() > 0
+
+# Helper: returns last planned cell (used to ignore duplicate clicks mid-path)
+func get_planned_destination() -> Vector2i:
+	return cells_travelled.back() if cells_travelled.size() > 0 else Vector2i(position / Globals.CELL_SIZE)
+
 func finalize_move() -> void:
-	origin_cell = Vector2i(position / Globals.CELL_SIZE)
+	origin_cell = _world_to_cell(position) # Floor convert on finalize for consistency
 	autopilot_path.clear()
 
 func _process(_delta: float) -> void:
@@ -116,7 +125,7 @@ func _process(_delta: float) -> void:
 	if movement != Vector2.ZERO:
 		var move_vector: Vector2 = movement * Globals.CELL_SIZE
 		var next_pos: Vector2 = position + move_vector
-		var next_grid_pos: Vector2i = Vector2i(next_pos / Globals.CELL_SIZE)
+		var next_grid_pos: Vector2i = _world_to_cell(next_pos) # Floor convert step target
 		
 		if reachable_cells.size() > 0 and not next_grid_pos in reachable_cells:
 			return
@@ -153,3 +162,7 @@ func _draw() -> void:
 	
 	var last_draw_pos = (Vector2(cells_travelled.back()) * Globals.CELL_SIZE) + half_cell - position
 	draw_circle(last_draw_pos, 2.0, Color.WHITE)
+
+func _world_to_cell(pos: Vector2) -> Vector2i:
+	# Floor-based world->grid mapping; works for negative/world-offset coords
+	return Vector2i(floor(pos.x / Globals.CELL_SIZE.x), floor(pos.y / Globals.CELL_SIZE.y))
