@@ -114,32 +114,63 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ActorInfo" type="PanelContainer" parent="GUI/Control"]
+[node name="HighlightedActor" type="PanelContainer" parent="GUI/Control"]
 custom_minimum_size = Vector2(75, 40)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Control/ActorInfo"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Control/HighlightedActor"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="GUI/Control/ActorInfo/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="GUI/Control/HighlightedActor/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_aees8")
 stretch_mode = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/ActorInfo/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/HighlightedActor/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ActorName" type="Label" parent="GUI/Control/ActorInfo/HBoxContainer/VBoxContainer"]
+[node name="H_ActorName" type="Label" parent="GUI/Control/HighlightedActor/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_2cgwh")
 theme_override_font_sizes/font_size = 8
 text = "Name"
 
-[node name="ActorHP" type="Label" parent="GUI/Control/ActorInfo/HBoxContainer/VBoxContainer"]
+[node name="H_ActorHP" type="Label" parent="GUI/Control/HighlightedActor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_2cgwh")
+theme_override_font_sizes/font_size = 8
+text = "HP"
+
+[node name="ActiveActor" type="PanelContainer" parent="GUI/Control"]
+custom_minimum_size = Vector2(75, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Control/ActiveActor"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Control/ActiveActor/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_aees8")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/ActiveActor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="A_ActorName" type="Label" parent="GUI/Control/ActiveActor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_2cgwh")
+theme_override_font_sizes/font_size = 8
+text = "Name"
+
+[node name="A_ActorHP" type="Label" parent="GUI/Control/ActiveActor/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_2cgwh")
 theme_override_font_sizes/font_size = 8
