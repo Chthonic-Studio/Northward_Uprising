@@ -16,6 +16,7 @@ script = ExtResource("1_ys1qc")
 custom_minimum_size = Vector2(320, 180)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Tilemaps" type="Node2D" parent="."]

@@ -1,33 +1,38 @@
 @tool
 class_name Actor extends CharacterBody2D
 
-@onready var input_delay: Timer = $InputDelay
-@onready var position_target : Vector2 = position
-@onready var sprite : Sprite2D = $Sprite
+signal moved_to_cell(cell: Vector2i) # Emits whenever the planned/current cell changes
 
-const FRIENDLY_COLOR : Color = Color("23ff1e")
-const ENEMY_COLOR : Color = Color("d94141")
+@onready var input_delay: Timer = $InputDelay
+@onready var position_target: Vector2 = position
+@onready var sprite: Sprite2D = $Sprite
+
+const FRIENDLY_COLOR: Color = Color("23ff1e")
+const ENEMY_COLOR: Color = Color("d94141")
 
 @export var stats: UnitResource = null # Holds unit stats such as movement_range
 
-var origin_cell: Vector2i = Vector2i.ZERO # Where the unit started before planning a move
+var origin_cell: Vector2i = Vector2i.ZERO # Starting cell before planning a move
+var cells_travelled: Array[Vector2i] = [] # Planned path cells (grid coords)
+var reachable_cells: Array[Vector2i] = [] # Cells this unit may enter this turn
+var autopilot_path: Array[Vector2i] = [] # Remaining steps when auto-moving
 
-var active : bool = false :
+var active: bool = false:
 	set(value):
 		active = value
 		if active:
 			origin_cell = Vector2i(position / Globals.CELL_SIZE)
 			cells_travelled.clear()
 			cells_travelled.append(origin_cell)
+			autopilot_path.clear()
+			_emit_current_cell()
 			queue_redraw()
 		else:
 			cells_travelled.clear()
+			autopilot_path.clear()
 			queue_redraw()
 
-var cells_travelled : Array[Vector2i] = [] # Path cells (grid coords)
-var reachable_cells : Array[Vector2i] = [] # Cells this unit may enter this turn
-
-@export var is_friendly : bool = false : 
+@export var is_friendly: bool = false:
 	set(value):
 		if sprite == null:
 			sprite = $Sprite
@@ -49,32 +54,60 @@ func _ready() -> void:
 		sprite = $Sprite
 
 func set_origin_cell(cell: Vector2i) -> void:
-	# Store starting cell for future cancel/backtracking
 	origin_cell = cell
 
 func set_reachable_cells(cells: Array[Vector2i]) -> void:
-	# Called by world to constrain movement and draw range
 	reachable_cells = cells.duplicate()
 
+func set_autopilot_path(path: Array[Vector2i]) -> void:
+	# Path must include current cell first
+	if path.is_empty():
+		return
+	cells_travelled = path.duplicate() # Keep full path for drawing/backtracking
+	autopilot_path = path.duplicate()
+	autopilot_path.pop_front() # Remove current cell
+	_emit_current_cell()
+	# Start first leg immediately if idle
+	if autopilot_path.size() > 0 and position.is_equal_approx(position_target):
+		var next_cell: Vector2i = autopilot_path.pop_front()
+		position_target = Vector2(next_cell) * Globals.CELL_SIZE
+		input_delay.start()
+
 func cancel_move_to_origin() -> void:
-	# Teleport back to start, reset path, keep actor ready to deactivate if needed
 	position = Vector2(origin_cell) * Globals.CELL_SIZE
 	position_target = position
 	cells_travelled.clear()
 	cells_travelled.append(origin_cell)
+	autopilot_path.clear()
+	_emit_current_cell()
 	queue_redraw()
 
 func finalize_move() -> void:
-	# Commit current position as new origin for future turns
 	origin_cell = Vector2i(position / Globals.CELL_SIZE)
+	autopilot_path.clear()
 
 func _process(_delta: float) -> void:
 	if not active:
 		return
 	
+	# Move toward current target pixel position
 	position = position.move_toward(position_target, 8)
 	queue_redraw()
 	
+	# Auto-advance along autopilot path when arrived
+	if autopilot_path.size() > 0 and input_delay.is_stopped() and position.is_equal_approx(position_target):
+		_emit_current_cell() # Reached this cell
+		if autopilot_path.size() > 0:
+			var next_cell: Vector2i = autopilot_path.pop_front()
+			position_target = Vector2(next_cell) * Globals.CELL_SIZE
+			input_delay.start()
+		return
+	
+	# If autopiloting, ignore manual input
+	if autopilot_path.size() > 0:
+		return
+	
+	# Wait until at target and delay elapsed before manual input
 	if not input_delay.is_stopped() or not position.is_equal_approx(position_target):
 		return
 		
@@ -85,24 +118,28 @@ func _process(_delta: float) -> void:
 		var next_pos: Vector2 = position + move_vector
 		var next_grid_pos: Vector2i = Vector2i(next_pos / Globals.CELL_SIZE)
 		
-		# Disallow stepping outside the computed reachable range (if provided)
 		if reachable_cells.size() > 0 and not next_grid_pos in reachable_cells:
 			return
 		
-		# If the input points to the 2nd to last cell we visited, we are "unwinding" the path.
+		# Backtrack one step
 		if cells_travelled.size() > 1 and next_grid_pos == cells_travelled[cells_travelled.size() - 2]:
-			cells_travelled.pop_back() # Remove the last step
+			cells_travelled.pop_back()
 			position_target = next_pos
+			_emit_current_cell()
 			input_delay.start()
-		
-		# If not backtracking, check for collisions and extend the path.
+		# Extend path if no collision
 		elif not test_move(transform, move_vector):
 			position_target = next_pos
 			cells_travelled.append(next_grid_pos)
+			_emit_current_cell()
 			input_delay.start()
 
+func _emit_current_cell() -> void:
+	if cells_travelled.size() == 0:
+		return
+	moved_to_cell.emit(cells_travelled.back())
+
 func _draw() -> void:
-	# Only draw if we have a path (start + at least 1 step)
 	if cells_travelled.size() < 2:
 		return
 		
@@ -111,7 +148,6 @@ func _draw() -> void:
 	for i in range(cells_travelled.size() - 1):
 		var start_draw_pos = (Vector2(cells_travelled[i]) * Globals.CELL_SIZE) + half_cell - position
 		var end_draw_pos = (Vector2(cells_travelled[i + 1]) * Globals.CELL_SIZE) + half_cell - position
-		
 		draw_line(start_draw_pos, end_draw_pos, Color.WHITE, 2.0)
 		draw_circle(start_draw_pos, 2.0, Color.WHITE)
 	
