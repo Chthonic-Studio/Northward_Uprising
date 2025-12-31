@@ -43,10 +43,13 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 
 func _handle_action_with_active_unit() -> void:
-	if active_unit == null or grid_cursor == null:
+	if active_unit == null: # Removed "or grid_cursor == null" check as we use mouse pos now
 		return
 	
-	var cursor_cell: Vector2i = _world_to_cell(grid_cursor.global_position)
+	# CHANGED: Calculate cursor_cell directly from mouse position to ensure
+	# negative coordinates are handled correctly by _world_to_cell's floor logic.
+	# This decouples input logic from the GridCursor visual object.
+	var cursor_cell: Vector2i = _world_to_cell(get_global_mouse_position())
 	var current_target: Vector2i = active_unit.cells_travelled.back()
 	
 	# If auto-walking and player clicks again:
