@@ -5,6 +5,8 @@ extends Node2D
 @onready var walls: TileMapLayer = $Tilemaps/Walls
 @onready var highlights: TileMapLayer = $Tilemaps/Highlights
 @onready var grid_cursor: Node2D = $GridCursor # Used to pick units under cursor
+@onready var gui: CanvasLayer = $GUI
+
 
 @export var highlight_source_id: int = 0              # TileSet source id to paint from
 @export var highlight_atlas_pos: Vector2i = Vector2i(2, 5) # Atlas coords to use for tint
