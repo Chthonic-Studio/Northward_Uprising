@@ -106,7 +106,7 @@ func _process(_delta: float) -> void:
 		return
 	
 	# Move toward current target pixel position
-	position = position.move_toward(position_target, 8)
+	position = position.move_toward(position_target, 16)
 	queue_redraw()
 	
 	# Auto-advance along autopilot path when arrived
