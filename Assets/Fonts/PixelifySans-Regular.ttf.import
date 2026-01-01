@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://2jdvss3370to"
-path="res://.godot/imported/Beholden-Bold.ttf-e6b534ff3e5dec5b81ec417d8552cfbe.fontdata"
+uid="uid://d2xsm1gnmja17"
+path="res://.godot/imported/PixelifySans-Regular.ttf-8d19ecab06e4f5259eb034eaa8c7821f.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/Beholden-Bold.ttf"
-dest_files=["res://.godot/imported/Beholden-Bold.ttf-e6b534ff3e5dec5b81ec417d8552cfbe.fontdata"]
+source_file="res://Assets/Fonts/PixelifySans-Regular.ttf"
+dest_files=["res://.godot/imported/PixelifySans-Regular.ttf-8d19ecab06e4f5259eb034eaa8c7821f.fontdata"]
 
 [params]
 
@@ -17,13 +17,13 @@ antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
-msdf_pixel_range=32
-msdf_size=64
-allow_system_fallback=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
 force_autohinter=false
 modulate_color_glyphs=false
 hinting=1
-subpixel_positioning=0
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=3.0
 Fallbacks=null
@@ -34,8 +34,7 @@ preload=[{
 "chars": [],
 "glyphs": [],
 "name": "New Configuration",
-"size": Vector2i(16, 0),
-&"variation_embolden": 0.0
+"size": Vector2i(16, 0)
 }]
 language_support={}
 script_support={}

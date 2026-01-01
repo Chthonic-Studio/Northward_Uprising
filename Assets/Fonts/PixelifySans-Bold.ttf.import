@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://2jdvss3370to"
-path="res://.godot/imported/Beholden-Bold.ttf-e6b534ff3e5dec5b81ec417d8552cfbe.fontdata"
+uid="uid://ly0xh836fula"
+path="res://.godot/imported/PixelifySans-Bold.ttf-8f55d3b6a8edee95f246ef641ca7e3b3.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/Beholden-Bold.ttf"
-dest_files=["res://.godot/imported/Beholden-Bold.ttf-e6b534ff3e5dec5b81ec417d8552cfbe.fontdata"]
+source_file="res://Assets/Fonts/PixelifySans-Bold.ttf"
+dest_files=["res://.godot/imported/PixelifySans-Bold.ttf-8f55d3b6a8edee95f246ef641ca7e3b3.fontdata"]
 
 [params]
 
@@ -17,13 +17,13 @@ antialiasing=0
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
-msdf_pixel_range=32
-msdf_size=64
-allow_system_fallback=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
 force_autohinter=false
 modulate_color_glyphs=false
 hinting=1
-subpixel_positioning=0
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=3.0
 Fallbacks=null

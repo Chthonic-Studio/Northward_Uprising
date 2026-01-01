@@ -6,7 +6,7 @@ enum States {
 }
 
 const GAME_SIZE: Vector2 = Vector2( 640, 360 )
-const CELL_SIZE: Vector2 = Vector2( 32, 32 )
+const CELL_SIZE: Vector2 = Vector2( 16, 16 )
 
 var current_map: TileMapLayer = null
 var target_cell: Vector2 = Vector2.ZERO

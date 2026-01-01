@@ -1,12 +1,12 @@
 extends CanvasLayer
 
-@onready var h_actor_panel: PanelContainer = $Control/HighlightedActor
-@onready var a_actor_panel: PanelContainer = $Control/ActiveActor
+@onready var h_actor_panel: PanelContainer = $HighlightedActor
+@onready var a_actor_panel: PanelContainer = $ActiveActor
 
-@onready var h_actor_name: Label = $Control/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorName
-@onready var h_actor_hp: Label = $Control/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorHP
-@onready var a_actor_name: Label = $Control/ActiveActor/HBoxContainer/VBoxContainer/A_ActorName
-@onready var a_actor_hp: Label = $Control/ActiveActor/HBoxContainer/VBoxContainer/A_ActorHP
+@onready var h_actor_name: Label = $HighlightedActor/HBoxContainer/VBoxContainer/H_ActorName
+@onready var h_actor_hp: Label = $HighlightedActor/HBoxContainer/VBoxContainer/H_ActorHP
+@onready var a_actor_name: Label = $ActiveActor/HBoxContainer/VBoxContainer/A_ActorName
+@onready var a_actor_hp: Label = $ActiveActor/HBoxContainer/VBoxContainer/A_ActorHP
 
 
 func _ready() -> void:

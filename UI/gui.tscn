@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkk2tlggkgrdx"]
+[gd_scene load_steps=6 format=3 uid="uid://dkk2tlggkgrdx"]
 
 [ext_resource type="Script" uid="uid://cvbbkcy8hj44j" path="res://UI/gui.gd" id="1_cwd3r"]
 [ext_resource type="Texture2D" uid="uid://bn7h5wx3bavf2" path="res://Assets/Characters/Hero_01.png" id="2_yrla7"]
+[ext_resource type="FontFile" uid="uid://dr612ndp8cf6t" path="res://Assets/Fonts/PixelifySans-Medium.ttf" id="4_yrla7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iaow0"]
 content_margin_left = 0.0
@@ -33,6 +34,86 @@ region = Rect2(39.623543, 109.89111, 17.65886, 17.822372)
 follow_viewport_enabled = true
 script = ExtResource("1_cwd3r")
 
+[node name="HighlightedActor" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(125, 45)
+anchors_preset = -1
+anchor_left = 0.7328125
+anchor_top = 0.013888889
+anchor_right = 0.9671875
+anchor_bottom = 0.1388889
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HighlightedActor"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HighlightedActor/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = SubResource("AtlasTexture_aees8")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HighlightedActor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="H_ActorName" type="Label" parent="HighlightedActor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_yrla7")
+theme_override_font_sizes/font_size = 16
+text = "Name"
+
+[node name="H_ActorHP" type="Label" parent="HighlightedActor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_yrla7")
+theme_override_font_sizes/font_size = 16
+text = "HP"
+
+[node name="ActiveActor" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(125, 45)
+anchors_preset = -1
+anchor_left = 0.0140625
+anchor_top = 0.013888889
+anchor_right = 0.209375
+anchor_bottom = 0.1388889
+offset_right = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ActiveActor"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ActiveActor/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = SubResource("AtlasTexture_aees8")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ActiveActor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="A_ActorName" type="Label" parent="ActiveActor/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_yrla7")
+theme_override_font_sizes/font_size = 16
+text = "Name"
+
+[node name="A_ActorHP" type="Label" parent="ActiveActor/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_yrla7")
+theme_override_font_sizes/font_size = 16
+text = "HP"
+
 [node name="Control" type="MarginContainer" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(300, 170)
@@ -48,99 +129,71 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HighlightedActor" type="PanelContainer" parent="Control"]
-custom_minimum_size = Vector2(75, 25)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/HighlightedActor"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/HighlightedActor/HBoxContainer"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_aees8")
-stretch_mode = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/HighlightedActor/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="H_ActorName" type="Label" parent="Control/HighlightedActor/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Name"
-
-[node name="H_ActorHP" type="Label" parent="Control/HighlightedActor/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "HP"
-
-[node name="ActiveActor" type="PanelContainer" parent="Control"]
-custom_minimum_size = Vector2(75, 25)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/ActiveActor"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/ActiveActor/HBoxContainer"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_aees8")
-stretch_mode = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/ActiveActor/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="A_ActorName" type="Label" parent="Control/ActiveActor/HBoxContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Name"
-
-[node name="A_ActorHP" type="Label" parent="Control/ActiveActor/HBoxContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "HP"
-
 [node name="CombatGUI" type="Control" parent="Control"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/CombatGUI"]
 layout_mode = 0
-offset_left = -4.0
-offset_top = 283.0
-offset_right = 150.0
-offset_bottom = 348.0
+offset_left = -9.0
+offset_top = 234.0
+offset_right = 245.0
+offset_bottom = 354.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/CombatGUI/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="PanelContainer" type="PanelContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer"]
+[node name="UnitCombatOptions" type="PanelContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="ScrollContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions"]
+custom_minimum_size = Vector2(60, 100)
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Fight" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Fight"
 
-[node name="Button2" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Skill" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "Fight"
+text = "Skill
+"
+
+[node name="Item" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Item
+"
+
+[node name="Wait" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Wait
+"
+
+[node name="Talk" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Talk
+"
+
+[node name="Interact" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Interact
+"
 
 [node name="PanelContainer2" type="PanelContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_vertical = 8
 
