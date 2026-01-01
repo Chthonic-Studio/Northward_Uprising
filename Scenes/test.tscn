@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://b765446eq6dss"]
+[gd_scene load_steps=10 format=4 uid="uid://b765446eq6dss"]
 
 [ext_resource type="PackedScene" uid="uid://xfni2131tmld" path="res://Scenes/actor.tscn" id="1_lc1oi"]
 [ext_resource type="TileSet" uid="uid://bc34f446p3bhg" path="res://Assets/Tilesets/RA_Grounds.tres" id="1_qc4db"]
@@ -8,35 +8,7 @@
 [ext_resource type="Resource" uid="uid://dqlkrm6f0n3d3" path="res://Resources/PlayerUnits/test_player_unit.tres" id="5_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://bair756jcfotv" path="res://UI/GridCursor/grid_cursor.tscn" id="5_35xla"]
 [ext_resource type="Resource" uid="uid://di0csbjrqcr3" path="res://Resources/EnemyUnits/test_enemy_unit.tres" id="6_0c07c"]
-[ext_resource type="FontFile" uid="uid://2jdvss3370to" path="res://Assets/Fonts/Beholden-Bold.ttf" id="9_2cgwh"]
-[ext_resource type="Script" uid="uid://cvbbkcy8hj44j" path="res://UI/gui.gd" id="9_qpfo2"]
-[ext_resource type="Texture2D" uid="uid://bn7h5wx3bavf2" path="res://Assets/Characters/Hero_01.png" id="10_yb21e"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iaow0"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.028193241, 0.028193241, 0.028193241, 0.8235294)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(15.30028, 15.30028, 15.30028, 1)
-border_blend = true
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-corner_detail = 20
-expand_margin_left = 5.0
-expand_margin_top = 2.0
-expand_margin_right = 5.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aees8"]
-atlas = ExtResource("10_yb21e")
-region = Rect2(39.623543, 109.89111, 17.65886, 17.822372)
+[ext_resource type="PackedScene" uid="uid://dkk2tlggkgrdx" path="res://UI/gui.tscn" id="9_2cgwh"]
 
 [node name="Test" type="Node2D"]
 script = ExtResource("1_ys1qc")
@@ -72,106 +44,42 @@ tile_set = ExtResource("2_ys1qc")
 position = Vector2(32, 64)
 collision_layer = 3
 stats = ExtResource("5_5wyu1")
+current_health = 10
 is_friendly = true
 
 [node name="ActorPlayer3" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(80, 96)
 collision_layer = 3
 stats = ExtResource("5_5wyu1")
+current_health = 10
 is_friendly = true
 
 [node name="ActorPlayer" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(32, 144)
 collision_layer = 3
 stats = ExtResource("5_5wyu1")
+current_health = 10
 is_friendly = true
 
 [node name="ActorEnemy" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(224, 48)
 collision_layer = 5
 stats = ExtResource("6_0c07c")
+current_health = 10
 
 [node name="ActorEnemy2" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(240, 112)
 collision_layer = 5
 stats = ExtResource("6_0c07c")
+current_health = 10
 
 [node name="ActorEnemy3" parent="Actors" instance=ExtResource("1_lc1oi")]
 position = Vector2(288, 160)
 collision_layer = 5
 stats = ExtResource("6_0c07c")
+current_health = 10
 
 [node name="GridCursor" parent="." instance=ExtResource("5_35xla")]
 monitorable = false
 
-[node name="GUI" type="CanvasLayer" parent="."]
-script = ExtResource("9_qpfo2")
-
-[node name="Control" type="MarginContainer" parent="GUI"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HighlightedActor" type="PanelContainer" parent="GUI/Control"]
-custom_minimum_size = Vector2(75, 40)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Control/HighlightedActor"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Control/HighlightedActor/HBoxContainer"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_aees8")
-stretch_mode = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/HighlightedActor/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="H_ActorName" type="Label" parent="GUI/Control/HighlightedActor/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("9_2cgwh")
-theme_override_font_sizes/font_size = 8
-text = "Name"
-
-[node name="H_ActorHP" type="Label" parent="GUI/Control/HighlightedActor/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("9_2cgwh")
-theme_override_font_sizes/font_size = 8
-text = "HP"
-
-[node name="ActiveActor" type="PanelContainer" parent="GUI/Control"]
-custom_minimum_size = Vector2(75, 40)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Control/ActiveActor"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Control/ActiveActor/HBoxContainer"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_aees8")
-stretch_mode = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Control/ActiveActor/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="A_ActorName" type="Label" parent="GUI/Control/ActiveActor/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("9_2cgwh")
-theme_override_font_sizes/font_size = 8
-text = "Name"
-
-[node name="A_ActorHP" type="Label" parent="GUI/Control/ActiveActor/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("9_2cgwh")
-theme_override_font_sizes/font_size = 8
-text = "HP"
+[node name="GUI" parent="." instance=ExtResource("9_2cgwh")]

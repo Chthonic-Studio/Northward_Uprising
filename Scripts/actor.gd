@@ -10,7 +10,8 @@ signal moved_to_cell(cell: Vector2i) # Emits whenever the planned/current cell c
 const FRIENDLY_COLOR: Color = Color("23ff1e")
 const ENEMY_COLOR: Color = Color("d94141")
 
-@export var stats: UnitResource = null # Holds unit stats such as movement_range
+@export var stats: UnitResource = null
+@export var current_health: int = -1
 
 var origin_cell: Vector2i = Vector2i.ZERO # Starting cell before planning a move
 var cells_travelled: Array[Vector2i] = [] # Planned path cells (grid coords)
@@ -52,6 +53,11 @@ func _ready() -> void:
 	is_friendly = is_friendly
 	if sprite == null:
 		sprite = $Sprite
+	if current_health < 0 and stats:
+		current_health = stats.max_health
+
+func get_max_health() -> int:
+	return stats.max_health if stats else 1
 
 func set_origin_cell(cell: Vector2i) -> void:
 	origin_cell = cell

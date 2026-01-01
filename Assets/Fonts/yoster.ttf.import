@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://2jdvss3370to"
-path="res://.godot/imported/Beholden-Bold.ttf-e6b534ff3e5dec5b81ec417d8552cfbe.fontdata"
+uid="uid://c3xng1ibmmmhm"
+path="res://.godot/imported/yoster.ttf-64117fb0451e364d2ef42f2df7a51248.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/Beholden-Bold.ttf"
-dest_files=["res://.godot/imported/Beholden-Bold.ttf-e6b534ff3e5dec5b81ec417d8552cfbe.fontdata"]
+source_file="res://Assets/Fonts/yoster.ttf"
+dest_files=["res://.godot/imported/yoster.ttf-64117fb0451e364d2ef42f2df7a51248.fontdata"]
 
 [params]
 
@@ -16,14 +16,14 @@ Rendering=null
 antialiasing=0
 generate_mipmaps=true
 disable_embedded_bitmaps=true
-multichannel_signed_distance_field=true
-msdf_pixel_range=32
-msdf_size=64
-allow_system_fallback=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
 force_autohinter=false
 modulate_color_glyphs=false
 hinting=1
-subpixel_positioning=0
+subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null

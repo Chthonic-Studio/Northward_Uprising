@@ -1,0 +1,109 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkk2tlggkgrdx"]
+
+[ext_resource type="Script" uid="uid://cvbbkcy8hj44j" path="res://UI/gui.gd" id="1_cwd3r"]
+[ext_resource type="Texture2D" uid="uid://bn7h5wx3bavf2" path="res://Assets/Characters/Hero_01.png" id="2_yrla7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iaow0"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.028193241, 0.028193241, 0.028193241, 0.8235294)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(15.30028, 15.30028, 15.30028, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 20
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aees8"]
+atlas = ExtResource("2_yrla7")
+region = Rect2(39.623543, 109.89111, 17.65886, 17.822372)
+
+[node name="GUI" type="CanvasLayer"]
+follow_viewport_enabled = true
+script = ExtResource("1_cwd3r")
+
+[node name="Control" type="MarginContainer" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(300, 170)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HighlightedActor" type="PanelContainer" parent="Control"]
+custom_minimum_size = Vector2(75, 25)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/HighlightedActor"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/HighlightedActor/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_aees8")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HighlightedActor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="H_ActorName" type="Label" parent="Control/HighlightedActor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Name"
+
+[node name="H_ActorHP" type="Label" parent="Control/HighlightedActor/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "HP"
+
+[node name="ActiveActor" type="PanelContainer" parent="Control"]
+custom_minimum_size = Vector2(75, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ActiveActor"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/ActiveActor/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_aees8")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ActiveActor/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="A_ActorName" type="Label" parent="Control/ActiveActor/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Name"
+
+[node name="A_ActorHP" type="Label" parent="Control/ActiveActor/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "HP"

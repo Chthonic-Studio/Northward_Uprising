@@ -1,5 +1,8 @@
 extends Node2D
 
+signal active_unit_changed(unit: Actor) # Fires when active unit is set/cleared
+signal hovered_actor_changed(actor: Actor) # Fires when cursor hover changes
+
 @onready var actors: Node2D = $Actors
 @onready var tilemaps: Node2D = $Tilemaps
 @onready var walls: TileMapLayer = $Tilemaps/Walls
@@ -7,13 +10,13 @@ extends Node2D
 @onready var grid_cursor: Node2D = $GridCursor # Used to pick units under cursor
 @onready var gui: CanvasLayer = $GUI
 
-
 @export var highlight_source_id: int = 0              # TileSet source id to paint from
 @export var highlight_atlas_pos: Vector2i = Vector2i(2, 5) # Atlas coords to use for tint
 
 var friendly_units: Array[Actor] = []
 var enemy_units: Array[Actor] = []
 var active_unit: Actor = null
+var hovered_actor: Actor = null # Tracks last hovered actor to avoid duplicate emits
 
 # Global A* graph for all non-wall tiles
 var astar_map: AStar2D = AStar2D.new()
@@ -24,8 +27,13 @@ func _ready() -> void:
 	_collect_units()
 	_build_astar_grid()
 	print("AStar nodes=", astar_map.get_point_count(), " map_bounds=", _get_map_bounds())
+	if grid_cursor and grid_cursor.has_signal("moved"):
+		grid_cursor.moved.connect(_on_grid_cursor_moved)
 	if friendly_units.size() > 0:
 		_set_active_unit(friendly_units[0])
+	else:
+		GUIManager.set_active_actor(null)
+	GUIManager.set_highlighted_actor(null)
 
 func _unhandled_input(event: InputEvent) -> void:
 	var action_pressed: bool = event.is_action_pressed("action")
@@ -131,6 +139,11 @@ func _set_active_unit(unit: Actor) -> void:
 	_clear_highlights()
 	
 	active_unit = unit
+	if active_unit == null:
+		active_unit_changed.emit(null)
+		GUIManager.set_active_actor(null)
+		return
+	
 	active_unit.set_origin_cell(_world_to_cell(active_unit.global_position))
 	active_unit.active = true
 	active_unit.moved_to_cell.connect(_on_active_unit_moved_cell)
@@ -143,27 +156,27 @@ func _set_active_unit(unit: Actor) -> void:
 	active_unit.set_reachable_cells(reachable)
 	_paint_highlights(reachable)
 	_on_active_unit_moved_cell(_world_to_cell(active_unit.global_position))
+	active_unit_changed.emit(active_unit)
+	GUIManager.set_active_actor(active_unit)
 
 func _confirm_active_unit_move() -> void:
 	if active_unit == null:
 		return
-		
 	if !active_unit.position.is_equal_approx(active_unit.position_target):
 		return
-		
 	if active_unit.is_connected("moved_to_cell", Callable(self, "_on_active_unit_moved_cell")):
 		active_unit.disconnect("moved_to_cell", Callable(self, "_on_active_unit_moved_cell"))
-		
 	active_unit.finalize_move()
 	active_unit.active = false
 	active_unit.set_reachable_cells([])
 	_clear_highlights()
 	active_unit = null
+	active_unit_changed.emit(null)
+	GUIManager.set_active_actor(null)
 
 func _cancel_active_unit_move() -> void:
 	if active_unit == null:
 		return
-	
 	var at_origin: bool = active_unit.cells_travelled.size() <= 1
 	if at_origin:
 		if active_unit.is_connected("moved_to_cell", Callable(self, "_on_active_unit_moved_cell")):
@@ -173,6 +186,8 @@ func _cancel_active_unit_move() -> void:
 		active_unit.set_reachable_cells([])
 		_clear_highlights()
 		active_unit = null
+		active_unit_changed.emit(null)
+		GUIManager.set_active_actor(null)
 	else:
 		active_unit.cancel_move_to_origin()
 		# Keep active; range + highlights remain.
@@ -326,3 +341,21 @@ func _paint_highlights(cells: Array[Vector2i]) -> void:
 func _world_to_cell(pos: Vector2) -> Vector2i:
 	# Floor-based world->grid mapping; fixes clicks on tiles left/up of origin
 	return Vector2i(floor(pos.x / Globals.CELL_SIZE.x), floor(pos.y / Globals.CELL_SIZE.y))
+
+func _on_grid_cursor_moved(pos: Vector2) -> void:
+	# Update hovered actor when cursor moves
+	var cell: Vector2i = _world_to_cell(pos)
+	var found: Actor = _find_actor_at_cell(cell)
+	if found == hovered_actor:
+		return
+	hovered_actor = found
+	hovered_actor_changed.emit(hovered_actor)
+	GUIManager.set_highlighted_actor(hovered_actor)
+
+func _find_actor_at_cell(cell: Vector2i) -> Actor:
+	# Returns any actor located at the grid cell
+	for child in actors.get_children():
+		if child is Actor:
+			if _world_to_cell(child.global_position) == cell:
+				return child
+	return null
