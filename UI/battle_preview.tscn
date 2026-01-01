@@ -1,0 +1,281 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqe0c142f4g6u"]
+
+[ext_resource type="Script" uid="uid://brwkiowje1drv" path="res://UI/battle_preview.gd" id="1_il0us"]
+[ext_resource type="Texture2D" uid="uid://66p8cxahto41" path="res://Assets/User Interface/Item Icons/RA_Item_Icons.png" id="1_k1qs6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ujs1"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.41, 0.1599, 0.1599, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wg577"]
+atlas = ExtResource("1_k1qs6")
+region = Rect2(80, 192, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpcnu"]
+atlas = ExtResource("1_k1qs6")
+region = Rect2(496, 288, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4fn5"]
+atlas = ExtResource("1_k1qs6")
+region = Rect2(32, 320, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lugd"]
+atlas = ExtResource("1_k1qs6")
+region = Rect2(368, 288, 16, 16)
+
+[node name="BattlePreview" type="PanelContainer"]
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 192.0
+offset_bottom = 224.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ujs1")
+script = ExtResource("1_il0us")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerUnit" type="VBoxContainer" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerUnit_Weapon" type="PanelContainer" parent="VBoxContainer/PanelContainer2/PlayerUnit"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/PlayerUnit/PlayerUnit_Weapon"]
+layout_mode = 2
+alignment = 1
+
+[node name="WeaponIcon" type="TextureRect" parent="VBoxContainer/PanelContainer2/PlayerUnit/PlayerUnit_Weapon/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wg577")
+
+[node name="WeaponName" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/PlayerUnit_Weapon/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Weapon"
+
+[node name="WeaponAdvantage" type="TextureRect" parent="VBoxContainer/PanelContainer2/PlayerUnit/PlayerUnit_Weapon/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wpcnu")
+
+[node name="UnitName" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Unit Name"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/PlayerUnit"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "HP"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "DMG"
+horizontal_alignment = 1
+
+[node name="DMG" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "HIT"
+horizontal_alignment = 1
+
+[node name="Hit" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CRIT"
+horizontal_alignment = 1
+
+[node name="Crit" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EnemyUnit" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/EnemyUnit"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "HP"
+horizontal_alignment = 1
+
+[node name="HP" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "DMG"
+horizontal_alignment = 1
+
+[node name="DMG" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "HIT"
+horizontal_alignment = 1
+
+[node name="HIT" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CRIT"
+horizontal_alignment = 1
+
+[node name="CRIT" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "99"
+horizontal_alignment = 1
+
+[node name="UnitName" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Unit Name"
+horizontal_alignment = 1
+
+[node name="EnemyUnit_Weapon" type="PanelContainer" parent="VBoxContainer/PanelContainer/EnemyUnit"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/EnemyUnit/EnemyUnit_Weapon"]
+layout_mode = 2
+alignment = 1
+
+[node name="WeaponIcon" type="TextureRect" parent="VBoxContainer/PanelContainer/EnemyUnit/EnemyUnit_Weapon/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_h4fn5")
+
+[node name="WeaponName" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/EnemyUnit_Weapon/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Weapon"
+
+[node name="WeaponAdvantage" type="TextureRect" parent="VBoxContainer/PanelContainer/EnemyUnit/EnemyUnit_Weapon/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_3lugd")

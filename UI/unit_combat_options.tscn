@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgy5vqecbbpne"]
+
+[ext_resource type="Script" uid="uid://bdt54dog3pw5s" path="res://UI/unit_combat_options.gd" id="1_qc81t"]
+[ext_resource type="FontFile" uid="uid://d2xsm1gnmja17" path="res://Assets/Fonts/PixelifySans-Regular.ttf" id="2_1osak"]
+
+[node name="UnitCombatOptions" type="PanelContainer"]
+custom_minimum_size = Vector2(50, 50)
+script = ExtResource("1_qc81t")
+
+[node name="VBoxContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(60, 100)
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Fight" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1osak")
+theme_override_font_sizes/font_size = 10
+text = "Fight"
+
+[node name="Skill" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1osak")
+theme_override_font_sizes/font_size = 10
+text = "Skill
+"
+
+[node name="Item" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1osak")
+theme_override_font_sizes/font_size = 10
+text = "Item
+"
+
+[node name="Wait" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1osak")
+theme_override_font_sizes/font_size = 10
+text = "Wait
+"
+
+[node name="Talk" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1osak")
+theme_override_font_sizes/font_size = 10
+text = "Talk
+"
+
+[node name="Interact" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1osak")
+theme_override_font_sizes/font_size = 10
+text = "Interact
+"

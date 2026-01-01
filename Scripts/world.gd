@@ -13,6 +13,9 @@ signal hovered_actor_changed(actor: Actor) # Fires when cursor hover changes
 @export var highlight_source_id: int = 0              # TileSet source id to paint from
 @export var highlight_atlas_pos: Vector2i = Vector2i(2, 5) # Atlas coords to use for tint
 
+@export_range(0, 400) var top_ui_gutter: int = 40     # Vertical space reserved for top GUI
+@export_range(0, 400) var bottom_ui_gutter: int = 40 
+
 var friendly_units: Array[Actor] = []
 var enemy_units: Array[Actor] = []
 var active_unit: Actor = null
@@ -27,6 +30,9 @@ func _ready() -> void:
 	_collect_units()
 	_build_astar_grid()
 	print("AStar nodes=", astar_map.get_point_count(), " map_bounds=", _get_map_bounds())
+	
+	#position.y = top_ui_gutter
+	
 	if grid_cursor and grid_cursor.has_signal("moved"):
 		grid_cursor.moved.connect(_on_grid_cursor_moved)
 	if friendly_units.size() > 0:

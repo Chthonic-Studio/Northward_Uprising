@@ -1,15 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkk2tlggkgrdx"]
+[gd_scene load_steps=13 format=3 uid="uid://dkk2tlggkgrdx"]
 
 [ext_resource type="Script" uid="uid://cvbbkcy8hj44j" path="res://UI/gui.gd" id="1_cwd3r"]
+[ext_resource type="PackedScene" uid="uid://dqe0c142f4g6u" path="res://UI/battle_preview.tscn" id="2_6ujs1"]
 [ext_resource type="Texture2D" uid="uid://bn7h5wx3bavf2" path="res://Assets/Characters/Hero_01.png" id="2_yrla7"]
+[ext_resource type="PackedScene" uid="uid://cgy5vqecbbpne" path="res://UI/unit_combat_options.tscn" id="3_wg577"]
+[ext_resource type="FontFile" uid="uid://de5u7ilnmh60l" path="res://Assets/Fonts/PixelifySans-SemiBold.ttf" id="4_ddble"]
 [ext_resource type="FontFile" uid="uid://dr612ndp8cf6t" path="res://Assets/Fonts/PixelifySans-Medium.ttf" id="4_yrla7"]
+[ext_resource type="StyleBox" uid="uid://cg2oe7hdv6qam" path="res://Resources/visible_panel.tres" id="6_wg577"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iaow0"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.028193241, 0.028193241, 0.028193241, 0.8235294)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpcnu"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.02745098, 0.02745098, 0.02745098, 0.5882353)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -21,18 +25,64 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 corner_detail = 20
-expand_margin_left = 5.0
-expand_margin_top = 2.0
-expand_margin_right = 5.0
-expand_margin_bottom = 2.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aees8"]
 atlas = ExtResource("2_yrla7")
 region = Rect2(39.623543, 109.89111, 17.65886, 17.822372)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4fn5"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrla7"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddble"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enabled = true
 script = ExtResource("1_cwd3r")
+battle_preview = ExtResource("2_6ujs1")
+unit_combat_options = ExtResource("3_wg577")
 
 [node name="HighlightedActor" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(125, 45)
@@ -44,7 +94,7 @@ anchor_bottom = 0.1388889
 size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wpcnu")
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HighlightedActor"]
@@ -73,47 +123,6 @@ theme_override_fonts/font = ExtResource("4_yrla7")
 theme_override_font_sizes/font_size = 16
 text = "HP"
 
-[node name="ActiveActor" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(125, 45)
-anchors_preset = -1
-anchor_left = 0.0140625
-anchor_top = 0.013888889
-anchor_right = 0.209375
-anchor_bottom = 0.1388889
-offset_right = 25.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_iaow0")
-metadata/_edit_use_anchors_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ActiveActor"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ActiveActor/HBoxContainer"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-texture = SubResource("AtlasTexture_aees8")
-stretch_mode = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ActiveActor/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="A_ActorName" type="Label" parent="ActiveActor/HBoxContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_yrla7")
-theme_override_font_sizes/font_size = 16
-text = "Name"
-
-[node name="A_ActorHP" type="Label" parent="ActiveActor/HBoxContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_yrla7")
-theme_override_font_sizes/font_size = 16
-text = "HP"
-
 [node name="Control" type="MarginContainer" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(300, 170)
@@ -128,75 +137,125 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 
-[node name="CombatGUI" type="Control" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/CombatGUI"]
-layout_mode = 0
-offset_left = -9.0
-offset_top = 234.0
-offset_right = 245.0
-offset_bottom = 354.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/CombatGUI/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="UnitCombatOptions" type="PanelContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h4fn5")
 
-[node name="VBoxContainer" type="ScrollContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions"]
-custom_minimum_size = Vector2(60, 100)
-layout_mode = 2
-follow_focus = true
-horizontal_scroll_mode = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer"]
-layout_mode = 2
-
-[node name="Fight" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Fight"
-
-[node name="Skill" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Skill
-"
-
-[node name="Item" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Item
-"
-
-[node name="Wait" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Wait
-"
-
-[node name="Talk" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Talk
-"
-
-[node name="Interact" type="Button" parent="Control/CombatGUI/MarginContainer/HBoxContainer/UnitCombatOptions/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Interact
-"
-
-[node name="PanelContainer2" type="PanelContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer"]
+[node name="ActiveActor" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/PanelContainer"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("6_wg577")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/CombatGUI/MarginContainer/HBoxContainer/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor"]
 custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = SubResource("AtlasTexture_aees8")
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="A_ActorName" type="Label" parent="Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_yrla7")
+theme_override_font_sizes/font_size = 16
+text = "Name"
+
+[node name="A_ActorHP" type="Label" parent="Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_yrla7")
+theme_override_font_sizes/font_size = 16
+text = "HP"
+
+[node name="BattleInfo" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/BattleInfo"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_yrla7")
+
+[node name="WinCondition" type="Label" parent="Control/MarginContainer/HBoxContainer/BattleInfo/PanelContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Defeat all enemies"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/HBoxContainer/BattleInfo"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="Control/MarginContainer/HBoxContainer/BattleInfo"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer/BattleInfo/PanelContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="TerrainInfo" type="PanelContainer" parent="Control"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ddble")
+
+[node name="TerrainVbox" type="VBoxContainer" parent="Control/TerrainInfo"]
+layout_mode = 2
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Control/TerrainInfo/TerrainVbox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/TerrainInfo/TerrainVbox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_ddble")
+theme_override_font_sizes/font_size = 10
+text = "Terrain"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/TerrainInfo/TerrainVbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/TerrainInfo/TerrainVbox/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "DEF: 0"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/TerrainInfo/TerrainVbox/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "AVO: 0"
+horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Control/TerrainInfo/TerrainVbox"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
