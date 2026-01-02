@@ -21,6 +21,13 @@ var enemy_units: Array[Actor] = []
 var active_unit: Actor = null
 var hovered_actor: Actor = null # Tracks last hovered actor to avoid duplicate emits
 
+enum ControlState { FIELD, MENU } # FIELD: normal movement; MENU: combat options open
+var control_state: int = ControlState.FIELD
+var camera: Camera2D = null
+var floor_tilemap: TileMapLayer = null
+var combat_menu: UnitCombatOptions = null
+var previous_mouse_mode: int = Input.MOUSE_MODE_VISIBLE # remembers mode before menus
+
 # Global A* graph for all non-wall tiles
 var astar_map: AStar2D = AStar2D.new()
 var cell_to_id: Dictionary = {}
@@ -31,19 +38,33 @@ func _ready() -> void:
 	_build_astar_grid()
 	print("AStar nodes=", astar_map.get_point_count(), " map_bounds=", _get_map_bounds())
 	
-	#position.y = top_ui_gutter
-	
 	if grid_cursor and grid_cursor.has_signal("moved"):
 		grid_cursor.moved.connect(_on_grid_cursor_moved)
+	
+	# Cache floor for bounds and camera for follow
+	floor_tilemap = tilemaps.get_node_or_null("Floor")
+	camera = get_node_or_null("Camera2D")
+	_set_camera_limits_from_floor()
+	
 	if friendly_units.size() > 0:
 		_set_active_unit(friendly_units[0])
 	else:
 		GUIManager.set_active_actor(null)
 	GUIManager.set_highlighted_actor(null)
 
+func _process(_delta: float) -> void:
+	_update_camera_follow()
+
 func _unhandled_input(event: InputEvent) -> void:
 	var action_pressed: bool = event.is_action_pressed("action")
 	var back_pressed: bool = event.is_action_pressed("back")
+	
+	if control_state == ControlState.MENU:
+		# Only allow closing menu with back; UI clicks handled by buttons
+		if back_pressed:
+			_close_combat_menu()
+			get_viewport().set_input_as_handled()
+		return
 	
 	if active_unit != null:
 		if action_pressed:
@@ -96,9 +117,9 @@ func _handle_action_with_active_unit() -> void:
 			return # Let the current autopilot finish
 		active_unit.cancel_move_to_origin() # Reset path so new request starts clean
 	
-	# If cursor is on the planned destination, confirm
+	# If cursor is on the planned destination, open combat options instead of instant confirm
 	if cursor_cell == current_target:
-		_confirm_active_unit_move()
+		_open_combat_menu()
 		return
 	
 	
@@ -136,6 +157,7 @@ func _collect_units() -> void:
 				enemy_units.append(child)
 
 func _set_active_unit(unit: Actor) -> void:
+	_close_combat_menu()
 	# Disconnect old
 	if active_unit and is_instance_valid(active_unit):
 		if active_unit.is_connected("moved_to_cell", Callable(self, "_on_active_unit_moved_cell")):
@@ -166,6 +188,8 @@ func _set_active_unit(unit: Actor) -> void:
 	GUIManager.set_active_actor(active_unit)
 
 func _confirm_active_unit_move() -> void:
+	if control_state == ControlState.MENU:
+		_close_combat_menu()
 	if active_unit == null:
 		return
 	if !active_unit.position.is_equal_approx(active_unit.position_target):
@@ -181,6 +205,8 @@ func _confirm_active_unit_move() -> void:
 	GUIManager.set_active_actor(null)
 
 func _cancel_active_unit_move() -> void:
+	if control_state == ControlState.MENU:
+		_close_combat_menu()
 	if active_unit == null:
 		return
 	var at_origin: bool = active_unit.cells_travelled.size() <= 1
@@ -365,3 +391,78 @@ func _find_actor_at_cell(cell: Vector2i) -> Actor:
 			if _world_to_cell(child.global_position) == cell:
 				return child
 	return null
+
+func _set_camera_limits_from_floor() -> void:
+	if camera == null or floor_tilemap == null:
+		return
+	var rect: Rect2i = floor_tilemap.get_used_rect()
+	var cell: Vector2 = Globals.CELL_SIZE
+	var world_pos: Vector2 = Vector2(rect.position) * cell
+	var world_size: Vector2 = Vector2(rect.size) * cell
+	camera.limit_left = int(world_pos.x)
+	camera.limit_top = int(world_pos.y)
+	camera.limit_right = int(world_pos.x + world_size.x)
+	camera.limit_bottom = int(world_pos.y + world_size.y)
+
+func _update_camera_follow() -> void:
+	if camera == null or active_unit == null:
+		return
+	camera.global_position = active_unit.global_position
+
+func _open_combat_menu() -> void:
+	if control_state == ControlState.MENU:
+		return
+	if gui == null or gui.unit_combat_options == null:
+		return
+	if active_unit == null:
+		return
+	
+	previous_mouse_mode = Input.mouse_mode          # remember current mode (hidden in FIELD)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE     # show OS cursor for menu interaction
+	
+	# Hide and stop grid cursor
+	if grid_cursor:
+		grid_cursor.hide()
+		grid_cursor.set_process(false)
+	
+	# Lock active unit manual input
+	if active_unit:
+		active_unit.input_locked = true
+	
+	var screen_pos: Vector2 = _world_to_viewport(active_unit.global_position)
+	combat_menu = gui.spawn_unit_combat_options(screen_pos)
+	
+	# Connect menu signals once per spawn
+	combat_menu.fight_pressed.connect(_on_menu_fight)
+	combat_menu.item_pressed.connect(_on_menu_item)
+	combat_menu.wait_pressed.connect(_on_menu_wait)
+	
+	control_state = ControlState.MENU
+
+func _close_combat_menu() -> void:
+	if gui:
+		gui.close_unit_combat_options()
+	combat_menu = null
+	if grid_cursor:
+		grid_cursor.show()
+		grid_cursor.set_process(true)
+	if active_unit:
+		active_unit.input_locked = false
+	Input.mouse_mode = previous_mouse_mode          # restore prior mode (hidden during field play)
+	control_state = ControlState.FIELD
+
+func _on_menu_fight() -> void:
+	# Placeholder: keep menu open for now (future battle preview/targeting)
+	pass
+
+func _on_menu_item() -> void:
+	# Disabled in UI but kept for future; do nothing for now
+	pass
+
+func _on_menu_wait() -> void:
+	_confirm_active_unit_move()
+	_close_combat_menu()
+
+func _world_to_viewport(pos: Vector2) -> Vector2:
+	var canvas_xform: Transform2D = get_viewport().get_canvas_transform()
+	return canvas_xform * pos

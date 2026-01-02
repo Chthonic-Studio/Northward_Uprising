@@ -17,6 +17,7 @@ var origin_cell: Vector2i = Vector2i.ZERO # Starting cell before planning a move
 var cells_travelled: Array[Vector2i] = [] # Planned path cells (grid coords)
 var reachable_cells: Array[Vector2i] = [] # Cells this unit may enter this turn
 var autopilot_path: Array[Vector2i] = [] # Remaining steps when auto-moving
+var input_locked: bool = false # When true, ignores manual input (menus, cutscenes)
 
 var active: bool = false:
 	set(value):
@@ -120,6 +121,18 @@ func _process(_delta: float) -> void:
 	
 	# If autopiloting, ignore manual input
 	if autopilot_path.size() > 0:
+		return
+	
+	# Wait until at target and delay elapsed before manual input
+	if not input_delay.is_stopped() or not position.is_equal_approx(position_target):
+		return
+		
+	# If autopiloting, ignore manual input
+	if autopilot_path.size() > 0:
+		return
+	
+	# Lock manual input when requested (e.g., menus)
+	if input_locked:
 		return
 	
 	# Wait until at target and delay elapsed before manual input
