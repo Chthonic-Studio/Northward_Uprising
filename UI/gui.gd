@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-@onready var h_actor_panel: PanelContainer = $HighlightedActor
+@onready var h_actor_panel: PanelContainer = $Control/MarginContainer/HBoxContainer/HighlightedActor
 @onready var a_actor_panel: PanelContainer = $Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor
 
-@onready var h_actor_name: Label = $HighlightedActor/HBoxContainer/VBoxContainer/H_ActorName
-@onready var h_actor_hp: Label = $HighlightedActor/HBoxContainer/VBoxContainer/H_ActorHP
+@onready var h_actor_name: Label = $Control/MarginContainer/HBoxContainer/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorName
+@onready var h_actor_hp: Label = $Control/MarginContainer/HBoxContainer/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorHP
 @onready var a_actor_name: Label = $Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer/A_ActorName
 @onready var a_actor_hp: Label = $Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer/A_ActorHP
 

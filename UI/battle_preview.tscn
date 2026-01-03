@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://66p8cxahto41" path="res://Assets/User Interface/Item Icons/RA_Item_Icons.png" id="1_k1qs6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ujs1"]
-content_margin_left = 0.0
+content_margin_left = 1.0
 content_margin_top = 0.0
-content_margin_right = 0.0
+content_margin_right = 1.0
 content_margin_bottom = 0.0
 bg_color = Color(0.1, 0.1, 0.1, 0.8)
 border_width_left = 2
@@ -41,6 +41,7 @@ atlas = ExtResource("1_k1qs6")
 region = Rect2(368, 288, 16, 16)
 
 [node name="BattlePreview" type="PanelContainer"]
+custom_minimum_size = Vector2(115, 144)
 offset_left = 80.0
 offset_top = 80.0
 offset_right = 192.0
@@ -104,7 +105,7 @@ horizontal_alignment = 1
 [node name="HP" type="Label" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "99"
+text = "99 -> 99"
 horizontal_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer2/PlayerUnit/HBoxContainer"]
@@ -193,7 +194,7 @@ horizontal_alignment = 1
 [node name="HP" type="Label" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "99"
+text = "99 -> 99"
 horizontal_alignment = 1
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer/EnemyUnit/HBoxContainer"]

@@ -1,4 +1,3 @@
-@tool
 class_name Actor extends CharacterBody2D
 
 signal moved_to_cell(cell: Vector2i) # Emits whenever the planned/current cell changes
