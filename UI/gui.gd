@@ -1,12 +1,12 @@
 extends CanvasLayer
 
-@onready var h_actor_panel: PanelContainer = $Control/MarginContainer/HBoxContainer/HighlightedActor
-@onready var a_actor_panel: PanelContainer = $Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor
+@onready var h_actor_panel: PanelContainer = $Control/MarginContainer/HBoxContainer/H_Actor_Container/HighlightedActor
+@onready var a_actor_panel: PanelContainer = $Control/MarginContainer/HBoxContainer/A_Actor_Container/ActiveActor
 
-@onready var h_actor_name: Label = $Control/MarginContainer/HBoxContainer/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorName
-@onready var h_actor_hp: Label = $Control/MarginContainer/HBoxContainer/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorHP
-@onready var a_actor_name: Label = $Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer/A_ActorName
-@onready var a_actor_hp: Label = $Control/MarginContainer/HBoxContainer/PanelContainer/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer/A_ActorHP
+@onready var h_actor_name: Label = $Control/MarginContainer/HBoxContainer/H_Actor_Container/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorName
+@onready var h_actor_hp: Label = $Control/MarginContainer/HBoxContainer/H_Actor_Container/HighlightedActor/HBoxContainer/VBoxContainer/H_ActorHP
+@onready var a_actor_name: Label = $Control/MarginContainer/HBoxContainer/A_Actor_Container/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer/A_ActorName
+@onready var a_actor_hp: Label = $Control/MarginContainer/HBoxContainer/A_Actor_Container/ActiveActor/VBoxContainer/HBoxContainer/VBoxContainer/A_ActorHP
 
 @export var battle_preview: PackedScene
 @export var unit_combat_options: PackedScene
@@ -53,11 +53,11 @@ func _position_combat_options(menu: UnitCombatOptions, screen_pos: Vector2) -> v
 		return
 	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
 	var menu_size: Vector2 = menu.get_combined_minimum_size()
-	var offset: Vector2 = Vector2(15, 0)
-	var desired: Vector2 = screen_pos + offset
+	var combat_options_offset : Vector2 = Vector2(15, 0)
+	var desired: Vector2 = screen_pos + combat_options_offset
 	# Flip to left if overflowing on the right
 	if desired.x + menu_size.x > viewport_size.x:
-		desired.x = screen_pos.x - offset.x - menu_size.x
+		desired.x = screen_pos.x - combat_options_offset.x - menu_size.x
 	# Clamp vertically inside the screen
 	desired.y = clamp(desired.y, 0.0, max(0.0, viewport_size.y - menu_size.y))
 	menu.position = desired

@@ -1,0 +1,1283 @@
+[gd_scene load_steps=4 format=3 uid="uid://mkdmxx8ixqqf"]
+
+[ext_resource type="Script" uid="uid://s7ax70468srr" path="res://UI/combat_screen.gd" id="1_1coue"]
+[ext_resource type="Texture2D" uid="uid://bj8ftitgheyvs" path="res://Assets/User Interface/heart.png" id="1_8rfc0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wg577"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="CombatScreen" type="PanelContainer"]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.13333334
+anchor_right = 0.859375
+anchor_bottom = 0.64444447
+offset_left = 16.0
+offset_right = 16.0
+script = ExtResource("1_1coue")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="UnitCombatInfoContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wg577")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/UnitCombatInfoContainer"]
+custom_minimum_size = Vector2(102, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnitName" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Unit Name"
+horizontal_alignment = 1
+
+[node name="UnitStats" type="GridContainer" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="STR" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "STR"
+horizontal_alignment = 1
+
+[node name="ARC" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "ARC"
+horizontal_alignment = 1
+
+[node name="SPD" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "SPD"
+horizontal_alignment = 1
+
+[node name="DEF" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "DEF"
+horizontal_alignment = 1
+
+[node name="RES" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "RES"
+horizontal_alignment = 1
+
+[node name="LUK" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "LUK"
+horizontal_alignment = 1
+
+[node name="SPD2" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "SPD"
+horizontal_alignment = 1
+
+[node name="LUK2" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "LUK"
+horizontal_alignment = 1
+
+[node name="UnitTraits" type="HBoxContainer" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnitPortrait" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="BattleStats" type="VBoxContainer" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DMG" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "DMG"
+horizontal_alignment = 1
+
+[node name="HIT" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "HIT"
+horizontal_alignment = 1
+
+[node name="CRT" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "CRT"
+horizontal_alignment = 1
+
+[node name="ADV" type="Label" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "ADV"
+horizontal_alignment = 1
+
+[node name="UnitHearts" type="GridContainer" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 14
+
+[node name="Heart" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart2" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart3" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart4" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart5" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart6" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart7" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart8" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart9" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart10" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart11" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart12" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart13" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart14" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart15" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart16" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart17" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart18" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart19" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart20" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart21" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart22" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart23" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart24" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart25" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart26" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart27" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart28" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart29" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart30" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart31" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart32" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart33" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart34" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart35" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart36" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart37" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart38" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart39" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart40" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart41" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart42" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart43" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart44" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart45" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart46" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart47" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart48" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart49" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart50" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart51" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart52" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart53" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart54" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart55" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart56" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart57" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart58" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart59" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart60" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart61" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart62" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart63" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart64" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart65" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart66" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart67" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart68" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart69" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart70" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart71" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart72" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart73" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart74" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart75" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart76" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart77" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart78" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart79" type="TextureRect" parent="HBoxContainer/UnitCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Control"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="EnemyCombatInfoContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wg577")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/EnemyCombatInfoContainer"]
+custom_minimum_size = Vector2(102, 0)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnitName" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Unit Name"
+horizontal_alignment = 1
+
+[node name="UnitStats" type="GridContainer" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="STR" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "STR"
+horizontal_alignment = 1
+
+[node name="ARC" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "ARC"
+horizontal_alignment = 1
+
+[node name="SPD" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "SPD"
+horizontal_alignment = 1
+
+[node name="DEF" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "DEF"
+horizontal_alignment = 1
+
+[node name="RES" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "RES"
+horizontal_alignment = 1
+
+[node name="LUK" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "LUK"
+horizontal_alignment = 1
+
+[node name="SPD2" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "SPD"
+horizontal_alignment = 1
+
+[node name="LUK2" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "LUK"
+horizontal_alignment = 1
+
+[node name="UnitTraits" type="HBoxContainer" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UnitPortrait" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="BattleStats" type="VBoxContainer" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DMG" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "DMG"
+horizontal_alignment = 1
+
+[node name="HIT" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "HIT"
+horizontal_alignment = 1
+
+[node name="CRT" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "CRT"
+horizontal_alignment = 1
+
+[node name="ADV" type="Label" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/HBoxContainer/BattleStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 8
+text = "ADV"
+horizontal_alignment = 1
+
+[node name="UnitHearts" type="GridContainer" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 14
+
+[node name="Heart" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart2" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart3" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart4" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart5" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart6" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart7" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart8" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart9" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart10" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart11" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart12" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart13" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart14" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart15" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart16" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart17" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart18" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart19" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart20" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart21" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart22" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart23" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart24" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart25" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart26" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart27" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart28" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart29" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart30" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart31" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart32" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart33" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart34" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart35" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart36" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart37" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart38" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart39" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart40" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart41" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart42" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart43" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart44" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart45" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart46" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart47" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart48" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart49" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart50" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart51" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart52" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart53" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart54" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart55" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart56" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart57" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart58" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart59" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart60" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart61" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart62" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart63" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart64" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart65" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart66" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart67" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart68" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart69" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart70" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart71" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart72" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart73" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart74" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart75" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart76" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart77" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart78" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1
+
+[node name="Heart79" type="TextureRect" parent="HBoxContainer/EnemyCombatInfoContainer/VBoxContainer/UnitHearts"]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+texture = ExtResource("1_8rfc0")
+expand_mode = 1

@@ -46,6 +46,7 @@ offset_left = 80.0
 offset_top = 80.0
 offset_right = 192.0
 offset_bottom = 224.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6ujs1")
 script = ExtResource("1_il0us")
 

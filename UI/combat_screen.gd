@@ -1,5 +1,4 @@
-class_name BattlePreview extends PanelContainer
-
+class_name CombatScreen extends PanelContainer
 
 
 # Called when the node enters the scene tree for the first time.
