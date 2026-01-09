@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Consumable" load_steps=2 format=3 uid="uid://fl80yrfebhag"]
+
+[ext_resource type="Script" uid="uid://cx0tgjr4kld3b" path="res://Resources/consumable.gd" id="1_rxqxd"]
+
+[resource]
+script = ExtResource("1_rxqxd")
+item_name = &"Test_Consumable"
+description = "For testing"
+metadata/_custom_type_script = "uid://cx0tgjr4kld3b"
